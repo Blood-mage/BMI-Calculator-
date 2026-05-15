@@ -1,0 +1,6 @@
+{
+  "name": "BMI Calculator (WHO & Asian)",
+  "description": "Calculates BMI and displays health categories according to standard WHO or Asian criteria.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
