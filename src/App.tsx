@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Undo, MoreVertical, PersonStanding, ChevronDown, Play } from 'lucide-react';
+import { Undo, MoreVertical, PersonStanding, ChevronDown, Play, ExternalLink, Scale } from 'lucide-react';
 
 const polarToCartesian = (centerX: number, centerY: number, radius: number, angleInDegrees: number) => {
   const svgAngle = 180 + angleInDegrees; 
@@ -65,6 +65,7 @@ export default function App() {
   const [heightFt, setHeightFt] = useState<number | ''>(5);
   const [heightIn, setHeightIn] = useState<number | ''>(1);
   const [weightLbs, setWeightLbs] = useState<number | ''>(142);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const reset = () => {
     setAge(58);
@@ -147,10 +148,36 @@ export default function App() {
     <div className="min-h-screen bg-[#FDFBF7] text-[#3D3D3D] font-sans mx-auto max-w-md shadow-2xl overflow-hidden flex flex-col relative pb-0 border-x border-[#E6E5DF]">
       
       <header className="flex justify-between items-center p-6 bg-[#FDFBF7] border-b border-[#E6E5DF] text-[#2A2A2A] sticky top-0 z-10">
-        <h1 className="text-xl font-semibold tracking-tight text-[#2A2A2A]">BMI Calculator</h1>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
+          <div className="bg-[#5D6D53] p-1.5 rounded-lg shadow-sm">
+            <Scale className="w-5 h-5 text-white" />
+          </div>
+          <h1 className="text-xl font-semibold tracking-tight text-[#2A2A2A]">BMI Calculator</h1>
+        </div>
+        <div className="flex items-center gap-4 relative">
           <Undo onClick={reset} className="w-5 h-5 cursor-pointer text-[#5D6D53] hover:text-[#2A2A2A] transition-colors" />
-          <MoreVertical className="w-5 h-5 cursor-pointer text-[#5D6D53] hover:text-[#2A2A2A] transition-colors" />
+          <button 
+            onClick={() => setIsMenuOpen(!isMenuOpen)} 
+            onBlur={() => setTimeout(() => setIsMenuOpen(false), 200)}
+            className="flex items-center justify-center p-1 rounded-full hover:bg-gray-100 transition-colors"
+          >
+            <MoreVertical className="w-5 h-5 text-[#5D6D53] hover:text-[#2A2A2A] transition-colors" />
+          </button>
+          
+          {isMenuOpen && (
+            <div className="absolute top-10 right-0 w-48 bg-white rounded-xl shadow-lg border border-[#E6E5DF] py-2 z-50">
+              <button 
+                onClick={() => {
+                  window.open(window.location.href, '_blank');
+                  setIsMenuOpen(false);
+                }}
+                className="w-full text-left px-4 py-2 text-sm text-[#2A2A2A] hover:bg-gray-50 flex items-center gap-2"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Open in new tab
+              </button>
+            </div>
+          )}
         </div>
       </header>
       
